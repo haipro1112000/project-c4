@@ -1,0 +1,10 @@
+target/**
+.idea/**
+/.idea/
+/starter_code/target/
+mvnw
+mvnw.cmd
+
+# Log file
+*.log
+
