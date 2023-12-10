@@ -19,7 +19,6 @@ import static com.example.demo.security.SecurityConstants.*;
 @RestController
 @RequestMapping("/api/item")
 public class ItemController {
-	@Autowired
 	private Logger logger = LoggerFactory.getLogger(ItemController.class);
 	@Autowired
 	private ItemRepository itemRepository;

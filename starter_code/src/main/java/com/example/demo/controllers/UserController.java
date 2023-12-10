@@ -62,13 +62,13 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest) {
         User user = new User();
         Cart cart = new Cart();
-        user.setUsername(createUserRequest.getUsername());
-        cartRepository.save(cart);
-        user.setCart(cart);
-        if (createUserRequest.getPassword().length() < 7 || !createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
+        if (createUserRequest.getPassword().length() < 8 || !createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
             logger.error("Method: {}, Username: {}, Status: {}", "createUser",  createUserRequest.getUsername(), FAIL);
             return ResponseEntity.badRequest().build();
         }
+        user.setUsername(createUserRequest.getUsername());
+        cartRepository.save(cart);
+        user.setCart(cart);
         user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
         userRepository.save(user);
         logger.info("Method: {}, Username: {}, Status: {}", "createUser",  createUserRequest.getUsername(), SUCCESS);

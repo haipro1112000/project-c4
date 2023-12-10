@@ -13,7 +13,6 @@ public class SecurityConstants {
 
     public static final String FAIL  = "FAIL";
 
-    public static final String LOG_FORMAT = "Method: %s, Status: %s - Request: %s";
 
 
 
