@@ -5,6 +5,4 @@ target/**
 mvnw
 mvnw.cmd
 
-# Log file
-*.log
 
