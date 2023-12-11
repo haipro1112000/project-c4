@@ -34,7 +34,6 @@ public class ItemController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Item> getItemById(@PathVariable Long id) {
-		logger.info("Method: {}, Status: {} , ItemById: {}", "getItemById", SUCCESS, id);
 		return ResponseEntity.of(itemRepository.findById(id));
 	}
 
@@ -42,10 +41,8 @@ public class ItemController {
 	public ResponseEntity<List<Item>> getItemsByName(@PathVariable String name) {
 		List<Item> items = itemRepository.findByName(name);
 		if (items == null || items.isEmpty()) {
-			logger.error("Method: {}, Status: {} , ItemsByName: {}", "getItemsByName", FAIL, "Not Found");
 			return ResponseEntity.notFound().build();
 		}
-		logger.info("Method: {}, Status: {} , ItemsByName: {}", "getItemsByName", SUCCESS, name);
 		return ResponseEntity.ok(items);
 
 	}

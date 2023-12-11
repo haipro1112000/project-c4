@@ -51,10 +51,8 @@ public class UserController {
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
-            logger.error("Method: {}, username: {}, Status: {}", "findByUserName",  "user is null", FAIL);
             return ResponseEntity.notFound().build();
         }
-        logger.info("Method: {}, username: {}, Status: {}","findByUserName",  username, SUCCESS);
         return ResponseEntity.ok(user);
     }
 
@@ -63,7 +61,6 @@ public class UserController {
         User user = new User();
         Cart cart = new Cart();
         if (createUserRequest.getPassword().length() < 8 || !createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
-            logger.error("Method: {}, Username: {}, Status: {}", "createUser",  createUserRequest.getUsername(), FAIL);
             return ResponseEntity.badRequest().build();
         }
         user.setUsername(createUserRequest.getUsername());
@@ -71,7 +68,6 @@ public class UserController {
         user.setCart(cart);
         user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
         userRepository.save(user);
-        logger.info("Method: {}, Username: {}, Status: {}", "createUser",  createUserRequest.getUsername(), SUCCESS);
         return ResponseEntity.ok(user);
     }
 

@@ -52,12 +52,10 @@ public class CartController {
     public ResponseEntity<Cart> addToCart(@RequestBody ModifyCartRequest request) {
         User user = userRepository.findByUsername(request.getUsername());
         if(user == null) {
-            logger.error("Method: {}, User: {}, Status: {}", "addToCart", "Not Found",  FAIL);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         Optional<Item> item = itemRepository.findById(request.getItemId());
         if(!item.isPresent()) {
-            logger.error("Method: {}, Item: {}, Status: {}", "addToCart", "Not Found",  FAIL);
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -65,7 +63,6 @@ public class CartController {
         IntStream.range(0, request.getQuantity())
                 .forEach(i -> cart.addItem(item.get()));
         cartRepository.save(cart);
-        logger.info("Method: {}, ItemId: {}, Status: {}", "addToCart", request.getItemId(),  SUCCESS);
         return ResponseEntity.ok(cart);
     }
 
@@ -73,19 +70,16 @@ public class CartController {
     public ResponseEntity<Cart> removeFromcart(@RequestBody ModifyCartRequest request) {
         User user = userRepository.findByUsername(request.getUsername());
         if(user == null) {
-            logger.error("Method: {}, User: {}, Status: {}", "removeFromcart", "Not Found",  FAIL);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         Optional<Item> item = itemRepository.findById(request.getItemId());
         if(!item.isPresent()) {
-            logger.error("Method: {}, Item: {}, Status: {}", "removeFromcart", "Not Found",  FAIL);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         Cart cart = user.getCart();
         IntStream.range(0, request.getQuantity())
                 .forEach(i -> cart.removeItem(item.get()));
         cartRepository.save(cart);
-        logger.info("Method: {}, ItemId: {}, Status: {}", "removeFromcart", request.getItemId(),  SUCCESS);
         return ResponseEntity.ok(cart);
     }
 
